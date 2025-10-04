@@ -1,5 +1,6 @@
--- Roblox FPS Devourer Script with GUI
+-- Advanced Roblox FPS Devourer Script with Enhanced GUI
 -- Discord: https://discord.gg/akundisco
+-- Version: 2.0 Advanced
 
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -8,19 +9,35 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local MarketplaceService = game:GetService("MarketplaceService")
 local InsertService = game:GetService("InsertService")
 local TweenService = game:GetService("TweenService")
+local Lighting = game:GetService("Lighting")
+local SoundService = game:GetService("SoundService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
 
 local LocalPlayer = Players.LocalPlayer
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui")
 
--- Configuration
-local ACCESSORY_ID = 12804776473 -- Blue Swirl Aura
-local DISCORD_LINK = "https://discord.gg/akundisco"
-local RAPID_PRESS_RATE = 2000 -- Presses per second
+-- Advanced Configuration
+local CONFIG = {
+    ACCESSORY_ID = 12804776473, -- Blue Swirl Aura
+    DISCORD_LINK = "https://discord.gg/akundisco",
+    RAPID_PRESS_RATE = 2000, -- Presses per second
+    MAX_PRESS_RATE = 5000, -- Maximum achievable rate
+    ANTI_LAG_MODE = true,
+    STEALTH_MODE = false,
+    AUTO_OPTIMIZE = true,
+    PERFORMANCE_MONITOR = true
+}
 
--- Variables
-local isDevourerActive = false
-local pressConnection = nil
-local gui = nil
+-- Advanced Variables
+local DevourerSystem = {
+    isActive = false,
+    currentRate = CONFIG.RAPID_PRESS_RATE,
+    totalPresses = 0,
+    startTime = 0,
+    pressConnection = nil,
+    optimizationConnection = nil,
+    performanceData = {}
+}
 
 -- Create GUI
 local function createStarryBackground()
